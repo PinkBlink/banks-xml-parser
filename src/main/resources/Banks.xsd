@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:element name="banks">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="bank">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="bank_name" type="xsd:string"/>
+                            <xsd:element name="country" type="xsd:string"/>
+                            <xsd:element name="depositor_name" type="xsd:string"/>
+                            <xsd:element name="id" type="xsd:integer"/>
+                            <xsd:element name="deposit_type" type="DepositType"/>
+                            <xsd:element name="amount_on_deposit" type="xsd:double"/>
+                            <xsd:element name="profitability" type="xsd:double"/>
+                            <xsd:element name="time_constrains" type="xsd:duration"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:simpleType name="DepositType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="DEMAND"/>
+            <xsd:enumeration value="TERM"/>
+            <xsd:enumeration value="CHECKING"/>
+            <xsd:enumeration value="SAVINGS"/>
+            <xsd:enumeration value="SAVER"/>
+            <xsd:enumeration value="METALLIC"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+</xsd:schema>
