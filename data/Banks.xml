@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<banks xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../src/main/resources/Banks.xsd">
+    <bank>
+        <bank_name>Bank of America</bank_name>
+        <country>USA</country>
+        <depositor_name>John Doe</depositor_name>
+        <id>123456</id>
+        <deposit_type>TERM</deposit_type>
+        <amount_on_deposit>10000.50</amount_on_deposit>
+        <profitability>5.5</profitability>
+        <time_constrains>P2Y</time_constrains>
+    </bank>
+    <bank>
+        <bank_name>Santander</bank_name>
+        <country>Poland</country>
+        <depositor_name>Mike Wazowski</depositor_name>
+        <id>1231</id>
+        <deposit_type>CHECKING</deposit_type>
+        <amount_on_deposit>1200.58</amount_on_deposit>
+        <profitability>0</profitability>
+        <time_constrains>P0Y11M0D</time_constrains>
+    </bank>
+</banks>

@@ -3,7 +3,7 @@
     <xsd:element name="banks">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element name="bank">
+                <xsd:element name="bank" maxOccurs="unbounded">
                     <xsd:complexType>
                         <xsd:sequence>
                             <xsd:element name="bank_name" type="xsd:string"/>
