@@ -13,6 +13,18 @@ public class Bank {
     private double profitability;
     private Duration timeConstrains;
 
+    public Bank(String bankName, String country, String depositorName, int accountId, DepositType depositType
+            , double depositAmount, double profitability, Duration timeConstrains) {
+        this.bankName = bankName;
+        this.country = country;
+        this.depositorName = depositorName;
+        this.accountId = accountId;
+        this.depositType = depositType;
+        this.depositAmount = depositAmount;
+        this.profitability = profitability;
+        this.timeConstrains = timeConstrains;
+    }
+
     public String getBankName() {
         return bankName;
     }
