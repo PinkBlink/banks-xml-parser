@@ -1,7 +1,7 @@
-package parsing.impl;
+package org.banks.xml.parser.parsing.impl;
 
 import org.banks.xml.parser.model.Bank;
-import parsing.XMLParser;
+import org.banks.xml.parser.parsing.XMLParser;
 
 import java.util.List;
 

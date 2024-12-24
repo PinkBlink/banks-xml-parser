@@ -7,12 +7,12 @@ import java.util.Set;
 public class IDUtils {
     private static final Set<Integer> ID_SET = new HashSet<>();
 
-    public static Set<Integer> getIdSet() {
-        return ID_SET;
-    }
-
     public static int getNewId() {
         return generateNewId();
+    }
+
+    public static void addId(int id) {
+        ID_SET.add(id);
     }
 
     private static int generateNewId() {
@@ -27,5 +27,19 @@ public class IDUtils {
 
     public static boolean isUniqueId(int id) {
         return !ID_SET.contains(id);
+    }
+
+    public static int parseId(String potentialId){
+        if (potentialId == null || potentialId.isEmpty() || !Validator.isNumber(potentialId)) {
+            return IDUtils.getNewId();
+        }
+
+        int id = Integer.parseInt(potentialId);
+        if (!IDUtils.isUniqueId(id)) {
+            return IDUtils.getNewId();
+        }
+
+        IDUtils.addId(id);
+        return id;
     }
 }

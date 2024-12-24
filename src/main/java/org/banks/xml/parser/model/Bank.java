@@ -1,6 +1,6 @@
 package org.banks.xml.parser.model;
 
-import java.time.Duration;
+import java.time.Period;
 import java.util.Objects;
 
 public class Bank {
@@ -11,10 +11,10 @@ public class Bank {
     private DepositType depositType;
     private double depositAmount;
     private double profitability;
-    private Duration timeConstrains;
+    private Period timeConstrains;
 
     public Bank(String bankName, String country, String depositorName, int accountId, DepositType depositType
-            , double depositAmount, double profitability, Duration timeConstrains) {
+            , double depositAmount, double profitability, Period timeConstrains) {
         this.bankName = bankName;
         this.country = country;
         this.depositorName = depositorName;
@@ -81,11 +81,11 @@ public class Bank {
         this.profitability = profitability;
     }
 
-    public Duration getTimeConstrains() {
+    public Period getTimeConstrains() {
         return timeConstrains;
     }
 
-    public void setTimeConstrains(Duration timeConstrains) {
+    public void setTimeConstrains(Period timeConstrains) {
         this.timeConstrains = timeConstrains;
     }
 
@@ -117,7 +117,7 @@ public class Bank {
 
     @Override
     public String toString() {
-        return "Bank{" +
+        return "\n Bank" +
                 "bankName='" + bankName + '\'' +
                 ", country='" + country + '\'' +
                 ", depositorName='" + depositorName + '\'' +
@@ -126,6 +126,6 @@ public class Bank {
                 ", depositAmount=" + depositAmount +
                 ", profitability=" + profitability +
                 ", timeConstrains=" + timeConstrains +
-                '}';
+                "\n-------------";
     }
 }
