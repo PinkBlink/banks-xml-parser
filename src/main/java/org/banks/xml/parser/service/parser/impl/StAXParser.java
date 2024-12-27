@@ -1,11 +1,11 @@
-package org.banks.xml.parser.parsing.impl;
+package org.banks.xml.parser.service.parser.impl;
 
 import org.banks.xml.parser.model.Bank;
-import org.banks.xml.parser.parsing.XMLParser;
+import org.banks.xml.parser.service.parser.XMLParser;
 
 import java.util.List;
 
-public class SAXParser implements XMLParser {
+public class StAXParser implements XMLParser {
     @Override
     public List<Bank> parse(String pathToXML) {
         return null;

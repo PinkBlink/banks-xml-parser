@@ -1,11 +1,10 @@
-package org.banks.xml.parser.parsing.impl;
+package org.banks.xml.parser.service.parser.impl;
 
 import org.banks.xml.parser.model.Bank;
 import org.banks.xml.parser.model.DepositType;
 import org.banks.xml.parser.utils.IDUtils;
-import org.banks.xml.parser.utils.contants.PathConstants;
 import org.w3c.dom.Node;
-import org.banks.xml.parser.parsing.XMLParser;
+import org.banks.xml.parser.service.parser.XMLParser;
 import org.banks.xml.parser.utils.contants.TagConstants;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -67,7 +66,17 @@ public class DOMParser implements XMLParser {
         String potentialPeriod = getContent(element, TIME_CONSTRAINS_TAG);
         Period period = (potentialPeriod != null) ? Period.parse(potentialPeriod) : Period.ZERO;
 
-        return new Bank(bankName, country, depositorName, id, depositType, amountOnDeposit, profitability, period);
+        Bank bank = new Bank();
+        bank.setBankName(bankName);
+        bank.setCountry(country);
+        bank.setDepositorName(depositorName);
+        bank.setAccountId(id);
+        bank.setDepositType(depositType);
+        bank.setDepositAmount(amountOnDeposit);
+        bank.setProfitability(profitability);
+        bank.setTimeConstrains(period);
+
+        return bank;
     }
 
     private String getContent(Element element, String tag) {
@@ -77,11 +86,5 @@ public class DOMParser implements XMLParser {
         } else {
             return content.getTextContent();
         }
-    }
-
-    public static void main(String[] args) {
-        XMLParser dom = new DOMParser();
-        List<Bank> bank = dom.parse(PathConstants.PATH_TO_XML);
-        System.out.println(bank);
     }
 }

@@ -1,4 +1,4 @@
-package org.banks.xml.parser.parsing;
+package org.banks.xml.parser.service.parser;
 
 import org.banks.xml.parser.model.Bank;
 

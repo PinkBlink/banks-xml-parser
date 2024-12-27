@@ -19,7 +19,7 @@ public class IDUtils {
         Random randomizer = new Random();
         int potentialId = randomizer.nextInt(Integer.MAX_VALUE);
         while (!isUniqueId(potentialId)) {
-            potentialId = randomizer.nextInt();
+            potentialId = randomizer.nextInt(Integer.MAX_VALUE);
         }
         ID_SET.add(potentialId);
         return potentialId;
@@ -29,17 +29,19 @@ public class IDUtils {
         return !ID_SET.contains(id);
     }
 
-    public static int parseId(String potentialId){
-        if (potentialId == null || potentialId.isEmpty() || !Validator.isNumber(potentialId)) {
-            return IDUtils.getNewId();
+    public static int parseId(String potentialId) {
+        if (!isValidId(potentialId)) {
+            return generateNewId();
         }
-
         int id = Integer.parseInt(potentialId);
         if (!IDUtils.isUniqueId(id)) {
-            return IDUtils.getNewId();
+            return generateNewId();
         }
-
         IDUtils.addId(id);
         return id;
+    }
+
+    private static boolean isValidId(String potentialId) {
+        return potentialId != null && !potentialId.isEmpty() && Validator.isNumber(potentialId);
     }
 }
