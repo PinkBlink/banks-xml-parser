@@ -1,5 +1,7 @@
 package org.banks.xml.parser.service.parser.impl;
 
+import org.banks.xml.parser.exception.InvalidFileException;
+import org.banks.xml.parser.exception.InvalidXMLException;
 import org.banks.xml.parser.model.Bank;
 import org.banks.xml.parser.model.DepositType;
 import org.banks.xml.parser.utils.IDUtils;
@@ -24,7 +26,7 @@ import static org.banks.xml.parser.utils.contants.TagConstants.*;
 
 public class XMLParserDOM implements XMLParser {
     @Override
-    public List<Bank> parse(String pathToXML) {
+    public List<Bank> parse(String pathToXML) throws InvalidFileException, InvalidXMLException {
         List<Bank> banks = new ArrayList<>();
         NodeList nodeList = getNodeListFromXML(TagConstants.BANK_TAG, pathToXML);
         for (int i = 0; i < nodeList.getLength(); i++) {
@@ -34,15 +36,17 @@ public class XMLParserDOM implements XMLParser {
         return banks;
     }
 
-    private NodeList getNodeListFromXML(String tag, String path) {
+    private NodeList getNodeListFromXML(String tag, String path) throws InvalidFileException, InvalidXMLException {
         File file = new File(path);
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         try {
             Document document = documentBuilderFactory.newDocumentBuilder().parse(file);
             return document.getElementsByTagName(tag);
 
-        } catch (IOException | ParserConfigurationException | SAXException e) {
-            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new InvalidFileException(e.getMessage());
+        }catch ( ParserConfigurationException | SAXException e){
+            throw new InvalidXMLException(e.getMessage());
         }
     }
 
