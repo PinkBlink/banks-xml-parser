@@ -22,7 +22,7 @@ import org.w3c.dom.Document;
 
 import static org.banks.xml.parser.utils.contants.TagConstants.*;
 
-public class DOMParser implements XMLParser {
+public class XMLParserDOM implements XMLParser {
     @Override
     public List<Bank> parse(String pathToXML) {
         List<Bank> banks = new ArrayList<>();

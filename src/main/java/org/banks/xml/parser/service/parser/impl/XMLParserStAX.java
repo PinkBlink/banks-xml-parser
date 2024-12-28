@@ -5,7 +5,7 @@ import org.banks.xml.parser.service.parser.XMLParser;
 
 import java.util.List;
 
-public class StAXParser implements XMLParser {
+public class XMLParserStAX implements XMLParser {
     @Override
     public List<Bank> parse(String pathToXML) {
         return null;
