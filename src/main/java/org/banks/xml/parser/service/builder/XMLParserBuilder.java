@@ -12,17 +12,19 @@ public class XMLParserBuilder {
     private String pathToXML;
     private XMLParserFactory xmlParserFactory;
 
-    public void setPathToXML(String pathToXML) {
+    public XMLParserBuilder setPathToXML(String pathToXML) {
         this.pathToXML = pathToXML;
+        return this;
     }
 
-    public void setParserType(String parserType) {
+    public XMLParserBuilder setParserType(String parserType) {
         xmlParserFactory = switch (parserType.trim().toUpperCase()) {
             case "DOM" -> new DOMParserFactory();
             case "SAX" -> new SAXParserFactory();
             case "STAX" -> new STAXParserFactory();
             default -> throw new WrongInputException("Wrong parser type: " + parserType);
         };
+        return this;
     }
 
     public XMLParser build() {
