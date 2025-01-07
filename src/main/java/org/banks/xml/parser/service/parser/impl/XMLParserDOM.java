@@ -7,7 +7,7 @@ import org.banks.xml.parser.model.DepositType;
 import org.banks.xml.parser.utils.IDUtils;
 import org.w3c.dom.Node;
 import org.banks.xml.parser.service.parser.XMLParser;
-import org.banks.xml.parser.utils.contants.TagConstants;
+import org.banks.xml.parser.utils.constants.TagConstants;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -22,11 +22,17 @@ import java.util.List;
 
 import org.w3c.dom.Document;
 
-import static org.banks.xml.parser.utils.contants.TagConstants.*;
+import static org.banks.xml.parser.utils.constants.TagConstants.*;
 
 public class XMLParserDOM implements XMLParser {
+    private String pathToXML;
+
+    public XMLParserDOM(String pathToXML) {
+        this.pathToXML = pathToXML;
+    }
+
     @Override
-    public List<Bank> parse(String pathToXML) throws InvalidFileException, InvalidXMLException {
+    public List<Bank> parse() throws InvalidFileException, InvalidXMLException {
         List<Bank> banks = new ArrayList<>();
         NodeList nodeList = getNodeListFromXML(TagConstants.BANK_TAG, pathToXML);
         for (int i = 0; i < nodeList.getLength(); i++) {
@@ -45,7 +51,7 @@ public class XMLParserDOM implements XMLParser {
 
         } catch (IOException e) {
             throw new InvalidFileException(e.getMessage());
-        }catch ( ParserConfigurationException | SAXException e){
+        } catch (ParserConfigurationException | SAXException e) {
             throw new InvalidXMLException(e.getMessage());
         }
     }
@@ -70,17 +76,16 @@ public class XMLParserDOM implements XMLParser {
         String potentialPeriod = getContent(element, TIME_CONSTRAINS_TAG);
         Period period = (potentialPeriod != null) ? Period.parse(potentialPeriod) : Period.ZERO;
 
-        Bank bank = new Bank();
-        bank.setBankName(bankName);
-        bank.setCountry(country);
-        bank.setDepositorName(depositorName);
-        bank.setAccountId(id);
-        bank.setDepositType(depositType);
-        bank.setDepositAmount(amountOnDeposit);
-        bank.setProfitability(profitability);
-        bank.setTimeConstrains(period);
-
-        return bank;
+        return new Bank.BankBuilder()
+                .setBankName(bankName)
+                .setCountry(country)
+                .setDepositorName(depositorName)
+                .setAccountId(id)
+                .setDepositType(depositType)
+                .setDepositAmount(amountOnDeposit)
+                .setProfitability(profitability)
+                .setTimeConstrains(period)
+                .build();
     }
 
     private String getContent(Element element, String tag) {

@@ -6,8 +6,14 @@ import org.banks.xml.parser.service.parser.XMLParser;
 import java.util.List;
 
 public class XMLParserStAX implements XMLParser {
+    private String pathToXML;
+
+    public XMLParserStAX(String pathToXML) {
+        this.pathToXML = pathToXML;
+    }
+
     @Override
-    public List<Bank> parse(String pathToXML) {
+    public List<Bank> parse() {
         return null;
     }
 }

@@ -1,5 +1,7 @@
 package org.banks.xml.parser.model;
 
+import org.banks.xml.parser.exception.WrongInputException;
+
 public enum DepositType {
     DEMAND,
     TERM,
@@ -14,6 +16,6 @@ public enum DepositType {
                 return depositType;
             }
         }
-        throw new IllegalArgumentException("Wrong Deposit Type: " + stringType);
+        throw new WrongInputException("Wrong Deposit Type: " + stringType);
     }
 }

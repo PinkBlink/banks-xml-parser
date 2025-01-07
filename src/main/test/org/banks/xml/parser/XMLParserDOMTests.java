@@ -1,4 +1,4 @@
 package org.banks.xml.parser;
 
-public class DOMParserTest {
+public class XMLParserDOMTests {
 }

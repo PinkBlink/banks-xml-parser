@@ -1,4 +1,4 @@
-package org.banks.xml.parser.utils.contants;
+package org.banks.xml.parser.utils.constants;
 
 public class TagConstants {
     public static final String BANK_TAG = "bank";

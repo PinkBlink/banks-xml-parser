@@ -3,7 +3,7 @@ package org.banks.xml.parser.service.parser.impl;
 import org.banks.xml.parser.exception.InvalidFileException;
 import org.banks.xml.parser.exception.InvalidXMLException;
 import org.banks.xml.parser.model.Bank;
-import org.banks.xml.parser.service.handler.BankHandler;
+import org.banks.xml.parser.service.parser.impl.handler.BankHandler;
 import org.banks.xml.parser.service.parser.XMLParser;
 import org.xml.sax.SAXException;
 
@@ -16,10 +16,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class XMLParserSAX implements XMLParser {
+    private String pathToXML;
     private List<Bank> banks = new ArrayList<>();
 
+    public XMLParserSAX(String pathToXML) {
+        this.pathToXML = pathToXML;
+    }
+
     @Override
-    public List<Bank> parse(String pathToXML) throws InvalidXMLException, InvalidFileException {
+    public List<Bank> parse() throws InvalidXMLException, InvalidFileException {
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
         try {
             SAXParser saxParser = saxParserFactory.newSAXParser();
