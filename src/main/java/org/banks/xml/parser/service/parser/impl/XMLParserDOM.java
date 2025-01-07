@@ -4,6 +4,8 @@ import org.banks.xml.parser.exception.InvalidFileException;
 import org.banks.xml.parser.exception.InvalidXMLException;
 import org.banks.xml.parser.model.Bank;
 import org.banks.xml.parser.model.DepositType;
+import org.banks.xml.parser.service.factory.BankBuilderFactory;
+import org.banks.xml.parser.service.factory.impl.BankBuilderFactoryImpl;
 import org.banks.xml.parser.utils.IDUtils;
 import org.w3c.dom.Node;
 import org.banks.xml.parser.service.parser.XMLParser;
@@ -26,6 +28,7 @@ import static org.banks.xml.parser.utils.constants.TagConstants.*;
 
 public class XMLParserDOM implements XMLParser {
     private String pathToXML;
+    private BankBuilderFactory bankBuilderFactory = new BankBuilderFactoryImpl();
 
     public XMLParserDOM(String pathToXML) {
         this.pathToXML = pathToXML;
@@ -76,7 +79,8 @@ public class XMLParserDOM implements XMLParser {
         String potentialPeriod = getContent(element, TIME_CONSTRAINS_TAG);
         Period period = (potentialPeriod != null) ? Period.parse(potentialPeriod) : Period.ZERO;
 
-        return new Bank.BankBuilder()
+        return bankBuilderFactory
+                .createBankBuilder()
                 .setBankName(bankName)
                 .setCountry(country)
                 .setDepositorName(depositorName)

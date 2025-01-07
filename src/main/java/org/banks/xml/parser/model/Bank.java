@@ -16,7 +16,6 @@ public class Bank {
     private Bank(BankBuilder bankBuilder) {
         this.bankName = bankBuilder.bankName;
         this.country = bankBuilder.country;
-        this.depositorName = bankBuilder.depositorName;
         this.accountId = bankBuilder.accountId;
         this.depositType = bankBuilder.depositType;
         this.depositorName = bankBuilder.depositorName;

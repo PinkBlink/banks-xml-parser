@@ -2,6 +2,8 @@ package org.banks.xml.parser.service.parser.impl.handler;
 
 import org.banks.xml.parser.model.Bank;
 import org.banks.xml.parser.model.DepositType;
+import org.banks.xml.parser.service.factory.BankBuilderFactory;
+import org.banks.xml.parser.service.factory.impl.BankBuilderFactoryImpl;
 import org.banks.xml.parser.utils.IDUtils;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
@@ -14,7 +16,8 @@ import static org.banks.xml.parser.utils.constants.TagConstants.*;
 
 public class BankHandler extends DefaultHandler {
     private List<Bank> banks = new ArrayList<>();
-    private Bank.BankBuilder bankBuilder = null;
+    private BankBuilderFactory bankBuilderFactory = new BankBuilderFactoryImpl();
+    private Bank.BankBuilder bankBuilder;
     private String content = null;
     private int id;
 
@@ -26,7 +29,7 @@ public class BankHandler extends DefaultHandler {
     public void startElement(String uri, String localName, String qName, Attributes attributes) {
         if (qName.equals(BANK_TAG)) {
             id = 0;
-            bankBuilder = new Bank.BankBuilder();
+            bankBuilder = bankBuilderFactory.createBankBuilder();
         }
     }
 
