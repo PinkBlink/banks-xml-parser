@@ -3,7 +3,7 @@ package org.banks.xml.parser;
 import org.banks.xml.parser.exception.InvalidFileException;
 import org.banks.xml.parser.exception.InvalidXMLException;
 import org.banks.xml.parser.model.Bank;
-import org.banks.xml.parser.service.builder.XMLParserBuilder;
+import org.banks.xml.parser.service.builder.impl.XMLParserBuilderImpl;
 import org.banks.xml.parser.service.parser.XMLParser;
 import org.banks.xml.parser.service.parser.impl.XMLParserDOM;
 import org.testng.Assert;
@@ -16,7 +16,7 @@ public class XMLParserDOMTests {
     private String validPath = new File("src/test/resources/test.xml").getAbsolutePath();
     private String invalidPath = "invalid/path/to/file.data";
     private List<Bank> expectedBanks = new ExpectedBanksContainer().getBanks();
-    private XMLParser xmlParserDOM = new XMLParserBuilder()
+    private XMLParser xmlParserDOM = new XMLParserBuilderImpl()
             .setParserType("dom")
             .setPathToXML(validPath)
             .build();
