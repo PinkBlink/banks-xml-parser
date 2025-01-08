@@ -100,5 +100,4 @@ public class ExpectedBanksContainer {
                 .build();
         banks.addAll(Arrays.asList(bank1, bank2, bank3, bank4, bank5, bank6, bank7));
     }
-
 }
