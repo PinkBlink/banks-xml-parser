@@ -10,7 +10,7 @@ public enum DepositType {
     SAVER,
     METALLIC;
 
-    public static DepositType parse(String stringType) {
+    public static DepositType parseDepositType(String stringType) {
         for (DepositType depositType : DepositType.values()) {
             if (stringType.trim().equalsIgnoreCase(depositType.toString())) {
                 return depositType;

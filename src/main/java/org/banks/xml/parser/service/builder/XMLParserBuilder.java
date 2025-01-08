@@ -1,6 +1,7 @@
 package org.banks.xml.parser.service.builder;
 
 import org.banks.xml.parser.exception.WrongInputException;
+import org.banks.xml.parser.exception.WrongStateException;
 import org.banks.xml.parser.service.factory.XMLParserFactory;
 import org.banks.xml.parser.service.factory.impl.DOMParserFactory;
 import org.banks.xml.parser.service.factory.impl.SAXParserFactory;
@@ -29,7 +30,7 @@ public class XMLParserBuilder {
 
     public XMLParser build() {
         if (pathToXML == null || xmlParserFactory == null) {
-            throw new IllegalStateException("Path to XML or parser type must be set");
+            throw new WrongStateException("Path to XML or parser type must be set");
         }
         return xmlParserFactory.createParser(pathToXML);
     }

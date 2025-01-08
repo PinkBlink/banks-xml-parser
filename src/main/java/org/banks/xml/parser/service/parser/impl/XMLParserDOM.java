@@ -7,6 +7,7 @@ import org.banks.xml.parser.model.DepositType;
 import org.banks.xml.parser.service.factory.BankBuilderFactory;
 import org.banks.xml.parser.service.factory.impl.BankBuilderFactoryImpl;
 import org.banks.xml.parser.utils.IDUtils;
+import org.banks.xml.parser.utils.ParserUtils;
 import org.w3c.dom.Node;
 import org.banks.xml.parser.service.parser.XMLParser;
 import org.banks.xml.parser.utils.constants.TagConstants;
@@ -68,16 +69,16 @@ public class XMLParserDOM implements XMLParser {
         int id = IDUtils.parseId(potentialId);
 
         String potentialType = getContent(element, DEPOSIT_TYPE_TAG);
-        DepositType depositType = DepositType.parse(potentialType);
+        DepositType depositType = DepositType.parseDepositType(potentialType);
 
         String potentialAmount = getContent(element, AMOUNT_ON_DEPOSIT_TAG);
-        double amountOnDeposit = (potentialAmount != null) ? Double.parseDouble(potentialAmount) : 0;
+        double amountOnDeposit = ParserUtils.parseDouble(potentialAmount);
 
         String potentialProfitability = getContent(element, PROFITABILITY_TAG);
-        double profitability = (potentialProfitability != null) ? Double.parseDouble(potentialProfitability) : 0;
+        double profitability = ParserUtils.parseDouble(potentialProfitability);
 
         String potentialPeriod = getContent(element, TIME_CONSTRAINS_TAG);
-        Period period = (potentialPeriod != null) ? Period.parse(potentialPeriod) : Period.ZERO;
+        Period period = ParserUtils.parsePeriod(potentialPeriod);
 
         return bankBuilderFactory
                 .createBankBuilder()

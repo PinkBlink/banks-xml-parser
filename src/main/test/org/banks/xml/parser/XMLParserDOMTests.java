@@ -9,11 +9,11 @@ import org.banks.xml.parser.service.parser.impl.XMLParserDOM;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.nio.file.Paths;
+import java.io.File;
 import java.util.List;
 
 public class XMLParserDOMTests {
-    private String validPath = Paths.get("src", "test", "resources", "test.xml").toString();
+    private String validPath = new File("src/test/resources/test.xml").getAbsolutePath();
     private String invalidPath = "invalid/path/to/file.data";
     private List<Bank> expectedBanks = new ExpectedBanksContainer().getBanks();
     private XMLParser xmlParserDOM = new XMLParserBuilder()
@@ -27,7 +27,7 @@ public class XMLParserDOMTests {
     }
 
     @Test
-    public void createdBanksFromXMLTest() throws InvalidFileException, InvalidXMLException {
+    public void parserDOMTest() throws InvalidFileException, InvalidXMLException {
         List<Bank> actual = xmlParserDOM.parse();
         Assert.assertEquals(actual, expectedBanks);
     }

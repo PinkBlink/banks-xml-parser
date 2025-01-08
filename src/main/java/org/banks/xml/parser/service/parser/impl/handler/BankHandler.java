@@ -39,7 +39,7 @@ public class BankHandler extends DefaultHandler {
             case BANK_NAME_TAG -> bankBuilder.setBankName(content);
             case COUNTRY_TAG -> bankBuilder.setCountry(content);
             case ID_TAG -> id = IDUtils.parseId(content);
-            case DEPOSIT_TYPE_TAG -> bankBuilder.setDepositType(DepositType.parse(content));
+            case DEPOSIT_TYPE_TAG -> bankBuilder.setDepositType(DepositType.parseDepositType(content));
             case AMOUNT_ON_DEPOSIT_TAG -> bankBuilder.setDepositAmount(Double.parseDouble(content));
             case PROFITABILITY_TAG -> bankBuilder.setProfitability(Double.parseDouble(content));
             case TIME_CONSTRAINS_TAG -> bankBuilder.setTimeConstrains(Period.parse(content));
