@@ -1,5 +1,7 @@
 package org.banks.xml.parser.model;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.banks.xml.parser.exception.WrongInputException;
 
 public enum DepositType {
@@ -9,13 +11,4 @@ public enum DepositType {
     SAVINGS,
     SAVER,
     METALLIC;
-
-    public static DepositType parseDepositType(String stringType) {
-        for (DepositType depositType : DepositType.values()) {
-            if (stringType.trim().equalsIgnoreCase(depositType.toString())) {
-                return depositType;
-            }
-        }
-        throw new WrongInputException("Wrong Deposit Type: " + stringType);
-    }
 }

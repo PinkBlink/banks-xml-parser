@@ -4,8 +4,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.banks.xml.parser.model.Bank;
 import org.banks.xml.parser.model.DepositType;
-import org.banks.xml.parser.service.factory.BankBuilderFactory;
-import org.banks.xml.parser.service.factory.impl.BankBuilderFactoryImpl;
 import org.banks.xml.parser.utils.IDUtils;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
@@ -19,10 +17,9 @@ import static org.banks.xml.parser.utils.constants.TagConstants.*;
 public class BankHandler extends DefaultHandler {
     private Logger logger = LogManager.getLogger(this);
     private List<Bank> banks = new ArrayList<>();
-    private BankBuilderFactory bankBuilderFactory = new BankBuilderFactoryImpl();
-    private Bank.BankBuilder bankBuilder;
+    private Bank.BankBuilder bankBuilder = new Bank.BankBuilder();
     private String content = null;
-    private int id;
+    private Integer id;
 
     public List<Bank> getBanks() {
         return banks;
@@ -31,8 +28,7 @@ public class BankHandler extends DefaultHandler {
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) {
         if (qName.equals(BANK_TAG)) {
-            id = 0;
-            bankBuilder = bankBuilderFactory.createBankBuilder();
+            id = null;
         }
     }
 
@@ -43,12 +39,12 @@ public class BankHandler extends DefaultHandler {
             case COUNTRY_TAG -> bankBuilder.setCountry(content);
             case DEPOSITOR_NAME_TAG -> bankBuilder.setDepositorName(content);
             case ID_TAG -> id = IDUtils.parseId(content);
-            case DEPOSIT_TYPE_TAG -> bankBuilder.setDepositType(DepositType.parseDepositType(content));
+            case DEPOSIT_TYPE_TAG -> bankBuilder.setDepositType(DepositType.valueOf(content));
             case AMOUNT_ON_DEPOSIT_TAG -> bankBuilder.setDepositAmount(Double.parseDouble(content));
             case PROFITABILITY_TAG -> bankBuilder.setProfitability(Double.parseDouble(content));
             case TIME_CONSTRAINS_TAG -> bankBuilder.setTimeConstrains(Period.parse(content));
             case BANK_TAG -> {
-                if (id == 0) {
+                if (id == null) {
                     id = IDUtils.getNewId();
                 }
                 bankBuilder.setAccountId(id);

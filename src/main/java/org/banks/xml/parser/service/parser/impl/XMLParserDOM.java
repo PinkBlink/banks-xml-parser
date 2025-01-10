@@ -6,8 +6,6 @@ import org.banks.xml.parser.exception.InvalidFileException;
 import org.banks.xml.parser.exception.InvalidXMLException;
 import org.banks.xml.parser.model.Bank;
 import org.banks.xml.parser.model.DepositType;
-import org.banks.xml.parser.service.factory.BankBuilderFactory;
-import org.banks.xml.parser.service.factory.impl.BankBuilderFactoryImpl;
 import org.banks.xml.parser.utils.IDUtils;
 import org.banks.xml.parser.utils.ParserUtils;
 import org.w3c.dom.Node;
@@ -32,7 +30,7 @@ import static org.banks.xml.parser.utils.constants.TagConstants.*;
 public class XMLParserDOM implements XMLParser {
     private Logger logger = LogManager.getLogger(this);
     private String pathToXML;
-    private BankBuilderFactory bankBuilderFactory = new BankBuilderFactoryImpl();
+    private Bank.BankBuilder bankBuilder = new Bank.BankBuilder();
 
     public XMLParserDOM(String pathToXML) {
         this.pathToXML = pathToXML;
@@ -76,7 +74,7 @@ public class XMLParserDOM implements XMLParser {
         int id = IDUtils.parseId(potentialId);
 
         String potentialType = getContent(element, DEPOSIT_TYPE_TAG);
-        DepositType depositType = DepositType.parseDepositType(potentialType);
+        DepositType depositType = DepositType.valueOf(potentialType);
 
         String potentialAmount = getContent(element, AMOUNT_ON_DEPOSIT_TAG);
         double amountOnDeposit = ParserUtils.parseDouble(potentialAmount);
@@ -87,8 +85,7 @@ public class XMLParserDOM implements XMLParser {
         String potentialPeriod = getContent(element, TIME_CONSTRAINS_TAG);
         Period period = ParserUtils.parsePeriod(potentialPeriod);
 
-        return bankBuilderFactory
-                .createBankBuilder()
+        return bankBuilder
                 .setBankName(bankName)
                 .setCountry(country)
                 .setDepositorName(depositorName)
@@ -104,9 +101,8 @@ public class XMLParserDOM implements XMLParser {
         Node content = element.getElementsByTagName(tag).item(0);
         if (content == null) {
             return null;
-        } else {
-            return content.getTextContent();
         }
+        return content.getTextContent();
     }
 
     @Override

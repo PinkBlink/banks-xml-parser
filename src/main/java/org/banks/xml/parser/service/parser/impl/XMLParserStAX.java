@@ -6,8 +6,6 @@ import org.banks.xml.parser.exception.InvalidFileException;
 import org.banks.xml.parser.exception.InvalidXMLException;
 import org.banks.xml.parser.model.Bank;
 import org.banks.xml.parser.model.DepositType;
-import org.banks.xml.parser.service.factory.BankBuilderFactory;
-import org.banks.xml.parser.service.factory.impl.BankBuilderFactoryImpl;
 import org.banks.xml.parser.service.parser.XMLParser;
 import org.banks.xml.parser.utils.IDUtils;
 import org.banks.xml.parser.utils.ParserUtils;
@@ -26,17 +24,15 @@ import static org.banks.xml.parser.utils.constants.TagConstants.*;
 public class XMLParserStAX implements XMLParser {
     private Logger logger = LogManager.getLogger(this);
     private XMLInputFactory xmlInputFactory;
-    private BankBuilderFactory bankBuilderFactory;
     private Bank.BankBuilder bankBuilder;
     private List<Bank> banks = new ArrayList<>();
     private String pathToXML;
     private String content = null;
-    private int id;
+    private Integer id;
 
     public XMLParserStAX(String pathToXML) {
         this.pathToXML = pathToXML;
         xmlInputFactory = XMLInputFactory.newInstance();
-        bankBuilderFactory = new BankBuilderFactoryImpl();
     }
 
     @Override
@@ -49,8 +45,8 @@ public class XMLParserStAX implements XMLParser {
 
                     case XMLStreamReader.START_ELEMENT -> {
                         if (xmlStreamReader.getLocalName().equals(BANK_TAG)) {
-                            bankBuilder = bankBuilderFactory.createBankBuilder();
-                            id = 0;
+                            bankBuilder = new Bank.BankBuilder();
+                            id = null;
                         }
                     }
 
@@ -79,7 +75,7 @@ public class XMLParserStAX implements XMLParser {
                 bankBuilder.setAccountId(id);
             }
             case DEPOSIT_TYPE_TAG -> {
-                DepositType depositType = DepositType.parseDepositType(content);
+                DepositType depositType = DepositType.valueOf(content);
                 bankBuilder.setDepositType(depositType);
             }
             case AMOUNT_ON_DEPOSIT_TAG -> {
@@ -95,7 +91,7 @@ public class XMLParserStAX implements XMLParser {
                 bankBuilder.setTimeConstrains(timeConstrains);
             }
             case BANK_TAG -> {
-                if (id == 0) {
+                if (id == null) {
                     id = IDUtils.getNewId();
                 }
                 Bank bank = bankBuilder.build();

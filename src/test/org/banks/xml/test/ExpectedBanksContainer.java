@@ -2,8 +2,6 @@ package org.banks.xml.test;
 
 import org.banks.xml.parser.model.Bank;
 import org.banks.xml.parser.model.DepositType;
-import org.banks.xml.parser.service.factory.BankBuilderFactory;
-import org.banks.xml.parser.service.factory.impl.BankBuilderFactoryImpl;
 
 import java.time.Period;
 import java.util.ArrayList;
@@ -22,226 +20,64 @@ public class ExpectedBanksContainer {
     }
 
     private void setUp() {
-        BankBuilderFactory bankBuilderFactory = new BankBuilderFactoryImpl();
-        Bank bank1 = bankBuilderFactory.createBankBuilder()
-                .setBankName("Bank of America")
-                .setCountry("USA")
-                .setDepositorName("John Doe")
-                .setDepositType(DepositType.TERM)
-                .setDepositAmount(10000.50)
-                .setProfitability(5.5)
-                .setTimeConstrains(Period.parse("P2Y"))
-                .build();
+        createBankAndAddToList("Bank of America", "USA", "John Doe"
+                , 0, DepositType.TERM, 10000.50, 5.5, "P2Y");
+        createBankAndAddToList("Santander", "Poland", "Mike Wazowski"
+                , 1231, DepositType.CHECKING, 1200.58, 0.0, "P0Y11M0D");
+        createBankAndAddToList("Deutsche Bank", "Germany", "Hans Müller"
+                , 789654, DepositType.SAVINGS, 25000.75, 3.2, "P3Y6M");
+        createBankAndAddToList("BNP Paribas", "France", "Amelie Dupont"
+                , 564738, DepositType.METALLIC, 8500.00, 4.0, "P1Y");
+        createBankAndAddToList("HSBC", "UK", "James Smith"
+                , 453276, DepositType.SAVINGS, 14000.33, 2.5, "P2Y3M");
+        createBankAndAddToList("ING Bank", "Netherlands", "Sophie van Dijk"
+                , 782342, DepositType.TERM, 5600.20, 3.8, "P5Y");
+        createBankAndAddToList("Bank of China", "China", "Wei Zhang"
+                , 998231, DepositType.CHECKING, 1200.00, 1.0, "P1Y0M10D");
+        createBankAndAddToList("UniCredit", "Italy", "Giulia Rossi"
+                , 341234, DepositType.SAVINGS, 7000.45, 2.9, "P3Y");
+        createBankAndAddToList("Raiffeisen Bank", "Austria", "Karl Steiner"
+                , 459283, DepositType.METALLIC, 3400.15, 5.1, "P4Y2M");
+        createBankAndAddToList("Credit Suisse", "Switzerland", "Elena Fischer"
+                , 764839, DepositType.TERM, 15000.90, 3.0, "P2Y");
+        createBankAndAddToList("Sberbank", "Russia", "Ivan Petrov"
+                , 543672, DepositType.CHECKING, 2300.10, 0.8, "P6M");
+        createBankAndAddToList("Scotiabank", "Canada", "Emma Brown"
+                , 873621, DepositType.SAVINGS, 19500.00, 2.7, "P3Y1M");
+        createBankAndAddToList("Commonwealth Bank", "Australia", "Oliver Green"
+                , 125637, DepositType.TERM, 6800.77, 4.3, "P4Y");
+        createBankAndAddToList("NORDEA", "Sweden", "Sofia Lund"
+                , 674982, DepositType.METALLIC, 4300.89, 3.9, "P2Y6M");
+        createBankAndAddToList("HSBC", "UK", "Sarah Connor"
+                , 345678, DepositType.SAVINGS, 5000.00, 1.8, "P5Y");
+        createBankAndAddToList("Deutsche Bank", "Germany", "James Bond"
+                , 987654, DepositType.CHECKING, 3500.75, 0.5, "P1Y2M");
+        createBankAndAddToList("Bank of China", "China", "Li Wei"
+                , 987123, DepositType.TERM, 20000.00, 4.5, "P10Y");
+        createBankAndAddToList("Citibank", "USA", "Michael Scott"
+                , 564738, DepositType.SAVINGS, 8000.30, 2.0, "P3Y");
+        createBankAndAddToList("JPMorgan Chase", "USA", "Alice Wonderland"
+                , 112233, DepositType.METALLIC, 15000.00, 3.2, "P7Y");
+        createBankAndAddToList("Barclays", "UK", "Peter Parker"
+                , 556677, DepositType.CHECKING, 1000.00, 0.0, "P0Y5M");
 
-        Bank bank2 = bankBuilderFactory.createBankBuilder()
-                .setBankName("Santander")
-                .setCountry("Poland")
-                .setDepositorName("Mike Wazowski")
-                .setAccountId(1231)
-                .setDepositType(DepositType.CHECKING)
-                .setDepositAmount(1200.58)
-                .setProfitability(0)
-                .setTimeConstrains(Period.parse("P0Y11M0D"))
-                .build();
+    }
 
-        Bank bank3 = bankBuilderFactory.createBankBuilder()
-                .setBankName("Deutsche Bank")
-                .setCountry("Germany")
-                .setDepositorName("Hans Müller")
-                .setAccountId(789654)
-                .setDepositType(DepositType.SAVINGS)
-                .setDepositAmount(25000.75)
-                .setProfitability(3.2)
-                .setTimeConstrains(Period.parse("P3Y6M"))
-                .build();
+    private void createBankAndAddToList(String name, String country
+            , String depositorName, int id
+            , DepositType depositType, double depositAmount
+            , double profitability, String period) {
 
-        Bank bank4 = bankBuilderFactory.createBankBuilder()
-                .setBankName("BNP Paribas")
-                .setCountry("France")
-                .setDepositorName("Amelie Dupont")
-                .setAccountId(564738)
-                .setDepositType(DepositType.METALLIC)
-                .setDepositAmount(8500.00)
-                .setProfitability(4.0)
-                .setTimeConstrains(Period.parse("P1Y"))
+        Bank.BankBuilder bankBuilder = new Bank.BankBuilder();
+        Bank bank = bankBuilder.setBankName(name)
+                .setCountry(country)
+                .setDepositorName(depositorName)
+                .setAccountId(id)
+                .setDepositType(depositType)
+                .setDepositAmount(depositAmount)
+                .setProfitability(profitability)
+                .setTimeConstrains(Period.parse(period))
                 .build();
-
-        Bank bank5 = bankBuilderFactory.createBankBuilder()
-                .setBankName("HSBC")
-                .setCountry("UK")
-                .setDepositorName("James Smith")
-                .setAccountId(453276)
-                .setDepositType(DepositType.SAVINGS)
-                .setDepositAmount(14000.33)
-                .setProfitability(2.5)
-                .setTimeConstrains(Period.parse("P2Y3M"))
-                .build();
-
-        Bank bank6 = bankBuilderFactory.createBankBuilder()
-                .setBankName("ING Bank")
-                .setCountry("Netherlands")
-                .setDepositorName("Sophie van Dijk")
-                .setAccountId(782342)
-                .setDepositType(DepositType.TERM)
-                .setDepositAmount(5600.20)
-                .setProfitability(3.8)
-                .setTimeConstrains(Period.parse("P5Y"))
-                .build();
-
-        Bank bank7 = bankBuilderFactory.createBankBuilder()
-                .setBankName("Bank of China")
-                .setCountry("China")
-                .setDepositorName("Wei Zhang")
-                .setAccountId(998231)
-                .setDepositType(DepositType.CHECKING)
-                .setDepositAmount(1200.00)
-                .setProfitability(1.0)
-                .setTimeConstrains(Period.parse("P1Y0M10D"))
-                .build();
-        Bank bank8 = bankBuilderFactory.createBankBuilder()
-                .setBankName("UniCredit")
-                .setCountry("Italy")
-                .setDepositorName("Giulia Rossi")
-                .setAccountId(341234)
-                .setDepositType(DepositType.SAVINGS)
-                .setDepositAmount(7000.45)
-                .setProfitability(2.9)
-                .setTimeConstrains(Period.parse("P3Y"))
-                .build();
-
-        Bank bank9 = bankBuilderFactory.createBankBuilder()
-                .setBankName("Raiffeisen Bank")
-                .setCountry("Austria")
-                .setDepositorName("Karl Steiner")
-                .setAccountId(459283)
-                .setDepositType(DepositType.METALLIC)
-                .setDepositAmount(3400.15)
-                .setProfitability(5.1)
-                .setTimeConstrains(Period.parse("P4Y2M"))
-                .build();
-
-        Bank bank10 = bankBuilderFactory.createBankBuilder()
-                .setBankName("Credit Suisse")
-                .setCountry("Switzerland")
-                .setDepositorName("Elena Fischer")
-                .setAccountId(764839)
-                .setDepositType(DepositType.TERM)
-                .setDepositAmount(15000.90)
-                .setProfitability(3.0)
-                .setTimeConstrains(Period.parse("P2Y"))
-                .build();
-
-        Bank bank11 = bankBuilderFactory.createBankBuilder()
-                .setBankName("Sberbank")
-                .setCountry("Russia")
-                .setDepositorName("Ivan Petrov")
-                .setAccountId(543672)
-                .setDepositType(DepositType.CHECKING)
-                .setDepositAmount(2300.10)
-                .setProfitability(0.8)
-                .setTimeConstrains(Period.parse("P6M"))
-                .build();
-
-        Bank bank12 = bankBuilderFactory.createBankBuilder()
-                .setBankName("Scotiabank")
-                .setCountry("Canada")
-                .setDepositorName("Emma Brown")
-                .setAccountId(873621)
-                .setDepositType(DepositType.SAVINGS)
-                .setDepositAmount(19500.00)
-                .setProfitability(2.7)
-                .setTimeConstrains(Period.parse("P3Y1M"))
-                .build();
-
-        Bank bank13 = bankBuilderFactory.createBankBuilder()
-                .setBankName("Commonwealth Bank")
-                .setCountry("Australia")
-                .setDepositorName("Oliver Green")
-                .setAccountId(125637)
-                .setDepositType(DepositType.TERM)
-                .setDepositAmount(6800.77)
-                .setProfitability(4.3)
-                .setTimeConstrains(Period.parse("P4Y"))
-                .build();
-
-        Bank bank14 = bankBuilderFactory.createBankBuilder()
-                .setBankName("NORDEA")
-                .setCountry("Sweden")
-                .setDepositorName("Sofia Lund")
-                .setAccountId(674982)
-                .setDepositType(DepositType.METALLIC)
-                .setDepositAmount(4300.89)
-                .setProfitability(3.9)
-                .setTimeConstrains(Period.parse("P2Y6M"))
-                .build();
-
-        Bank bank15 = bankBuilderFactory.createBankBuilder()
-                .setBankName("HSBC")
-                .setCountry("UK")
-                .setDepositorName("Sarah Connor")
-                .setAccountId(345678)
-                .setDepositType(DepositType.SAVINGS)
-                .setDepositAmount(5000.00)
-                .setProfitability(1.8)
-                .setTimeConstrains(Period.parse("P5Y"))
-                .build();
-
-        Bank bank16 = bankBuilderFactory.createBankBuilder()
-                .setBankName("Deutsche Bank")
-                .setCountry("Germany")
-                .setDepositorName("James Bond")
-                .setAccountId(987654)
-                .setDepositType(DepositType.CHECKING)
-                .setDepositAmount(3500.75)
-                .setProfitability(0.5)
-                .setTimeConstrains(Period.parse("P1Y2M"))
-                .build();
-
-        Bank bank17 = bankBuilderFactory.createBankBuilder()
-                .setBankName("Bank of China")
-                .setCountry("China")
-                .setDepositorName("Li Wei")
-                .setAccountId(987123)
-                .setDepositType(DepositType.TERM)
-                .setDepositAmount(20000.00)
-                .setProfitability(4.5)
-                .setTimeConstrains(Period.parse("P10Y"))
-                .build();
-
-        Bank bank18 = bankBuilderFactory.createBankBuilder()
-                .setBankName("Citibank")
-                .setCountry("USA")
-                .setDepositorName("Michael Scott")
-                .setAccountId(564738)
-                .setDepositType(DepositType.SAVINGS)
-                .setDepositAmount(8000.30)
-                .setProfitability(2.0)
-                .setTimeConstrains(Period.parse("P3Y"))
-                .build();
-
-        Bank bank19 = bankBuilderFactory.createBankBuilder()
-                .setBankName("JPMorgan Chase")
-                .setCountry("USA")
-                .setDepositorName("Alice Wonderland")
-                .setAccountId(112233)
-                .setDepositType(DepositType.METALLIC)
-                .setDepositAmount(15000.00)
-                .setProfitability(3.2)
-                .setTimeConstrains(Period.parse("P7Y"))
-                .build();
-
-        Bank bank20 = bankBuilderFactory.createBankBuilder()
-                .setBankName("Barclays")
-                .setCountry("UK")
-                .setDepositorName("Peter Parker")
-                .setAccountId(556677)
-                .setDepositType(DepositType.CHECKING)
-                .setDepositAmount(1000.00)
-                .setProfitability(0.0)
-                .setTimeConstrains(Period.parse("P5M"))
-                .build();
-
-        banks.addAll(Arrays.asList(bank1, bank2, bank3, bank4, bank5, bank6, bank7
-                , bank8, bank9, bank10, bank11, bank12, bank13, bank14, bank15, bank16, bank17, bank18, bank19, bank20));
+        banks.add(bank);
     }
 }

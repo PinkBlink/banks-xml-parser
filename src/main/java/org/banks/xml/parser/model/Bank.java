@@ -4,14 +4,14 @@ import java.time.Period;
 import java.util.Objects;
 
 public class Bank {
-    private String bankName;
-    private String country;
-    private String depositorName;
-    private int accountId;
-    private DepositType depositType;
-    private double depositAmount;
-    private double profitability;
-    private Period timeConstrains;
+    private final String bankName;
+    private final String country;
+    private final String depositorName;
+    private final int accountId;
+    private final DepositType depositType;
+    private final double depositAmount;
+    private final double profitability;
+    private final Period timeConstrains;
 
     private Bank(BankBuilder bankBuilder) {
         this.bankName = bankBuilder.bankName;
