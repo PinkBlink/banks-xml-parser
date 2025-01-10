@@ -10,7 +10,7 @@ public class Validator {
         numberStr = numberStr.trim();
         for (int i = 0; i < numberStr.length(); i++) {
             char digit = numberStr.charAt(i);
-            if (!Character.isDigit(digit)) {
+            if (!Character.isDigit(digit) && digit!='.') {
                 return false;
             }
         }

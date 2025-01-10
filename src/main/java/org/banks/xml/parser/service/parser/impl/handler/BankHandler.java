@@ -38,6 +38,7 @@ public class BankHandler extends DefaultHandler {
         switch (qName) {
             case BANK_NAME_TAG -> bankBuilder.setBankName(content);
             case COUNTRY_TAG -> bankBuilder.setCountry(content);
+            case DEPOSITOR_NAME_TAG -> bankBuilder.setDepositorName(content);
             case ID_TAG -> id = IDUtils.parseId(content);
             case DEPOSIT_TYPE_TAG -> bankBuilder.setDepositType(DepositType.parseDepositType(content));
             case AMOUNT_ON_DEPOSIT_TAG -> bankBuilder.setDepositAmount(Double.parseDouble(content));

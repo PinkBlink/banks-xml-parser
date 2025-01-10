@@ -1,7 +1,7 @@
 package org.banks.xml.parser.service.parser.impl;
 
 import org.banks.xml.parser.exception.InvalidFileException;
-import org.banks.xml.parser.exception.WrongStateException;
+import org.banks.xml.parser.exception.InvalidXMLException;
 import org.banks.xml.parser.model.Bank;
 import org.banks.xml.parser.model.DepositType;
 import org.banks.xml.parser.service.factory.BankBuilderFactory;
@@ -37,7 +37,7 @@ public class XMLParserStAX implements XMLParser {
     }
 
     @Override
-    public List<Bank> parse() throws InvalidFileException {
+    public List<Bank> parse() throws InvalidFileException, InvalidXMLException {
         try (FileInputStream fileInputStream = new FileInputStream(pathToXML)) {
             XMLStreamReader xmlStreamReader = xmlInputFactory.createXMLStreamReader(pathToXML, fileInputStream);
             while (xmlStreamReader.hasNext()) {
@@ -59,7 +59,7 @@ public class XMLParserStAX implements XMLParser {
         } catch (IOException e) {
             throw new InvalidFileException(e.getMessage());
         } catch (XMLStreamException e) {
-            throw new RuntimeException(e);
+            throw new InvalidXMLException(e.getMessage());
         }
         return banks;
     }
@@ -95,7 +95,6 @@ public class XMLParserStAX implements XMLParser {
                 }
                 banks.add(bankBuilder.build());
             }
-            default -> throw new WrongStateException("Unexpected value: " + endElement);
         }
     }
 }

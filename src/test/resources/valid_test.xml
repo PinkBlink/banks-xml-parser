@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <banks xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:noNamespaceSchemaLocation="../src/main/resources/Banks.xsd">
+       xsi:noNamespaceSchemaLocation="Banks.xsd">
     <bank>
         <bank_name>Bank of America</bank_name>
         <country>USA</country>
