@@ -1,5 +1,7 @@
 package org.banks.xml.parser.service.parser.impl;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.banks.xml.parser.exception.InvalidFileException;
 import org.banks.xml.parser.exception.InvalidXMLException;
 import org.banks.xml.parser.model.Bank;
@@ -16,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class XMLParserSAX implements XMLParser {
+    private Logger logger = LogManager.getLogger(this);
     private String pathToXML;
     private List<Bank> banks = new ArrayList<>();
 
@@ -33,10 +36,17 @@ public class XMLParserSAX implements XMLParser {
             saxParser.parse(banksXML, bankHandler);
             banks.addAll(bankHandler.getBanks());
         } catch (ParserConfigurationException | SAXException e) {
+            logger.error("Problem with XML " + pathToXML);
             throw new InvalidXMLException(e.getMessage());
         } catch (IOException e) {
+            logger.error("Problem with file " + pathToXML);
             throw new InvalidFileException(e.getMessage());
         }
         return banks;
+    }
+
+    @Override
+    public String toString() {
+        return "SAX parser";
     }
 }

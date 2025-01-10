@@ -10,7 +10,7 @@ public class ParserUtils {
     }
 
     public static Period parsePeriod(String potentialPeriod) {
-        return (potentialPeriod != null)//mb add check for period
+        return (potentialPeriod != null)
                 ? Period.parse(potentialPeriod)
                 : Period.ZERO;
     }

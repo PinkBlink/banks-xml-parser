@@ -1,5 +1,7 @@
 package org.banks.xml.parser.service.parser.impl;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.banks.xml.parser.exception.InvalidFileException;
 import org.banks.xml.parser.exception.InvalidXMLException;
 import org.banks.xml.parser.model.Bank;
@@ -28,6 +30,7 @@ import org.w3c.dom.Document;
 import static org.banks.xml.parser.utils.constants.TagConstants.*;
 
 public class XMLParserDOM implements XMLParser {
+    private Logger logger = LogManager.getLogger(this);
     private String pathToXML;
     private BankBuilderFactory bankBuilderFactory = new BankBuilderFactoryImpl();
 
@@ -41,7 +44,9 @@ public class XMLParserDOM implements XMLParser {
         NodeList nodeList = getNodeListFromXML(TagConstants.BANK_TAG, pathToXML);
         for (int i = 0; i < nodeList.getLength(); i++) {
             Element bankElement = (Element) nodeList.item(i);
-            banks.add(getBankFromElement(bankElement));
+            Bank bank = getBankFromElement(bankElement);
+            logger.info("Object created by DOM parser : " + bank);
+            banks.add(bank);
         }
         return banks;
     }
@@ -54,8 +59,10 @@ public class XMLParserDOM implements XMLParser {
             return document.getElementsByTagName(tag);
 
         } catch (IOException e) {
+            logger.error("Problem with file: " + path);
             throw new InvalidFileException(e.getMessage());
         } catch (ParserConfigurationException | SAXException e) {
+            logger.error("Problem with XML:" + path + " or incorrect tag: " + tag);
             throw new InvalidXMLException(e.getMessage());
         }
     }
@@ -100,5 +107,10 @@ public class XMLParserDOM implements XMLParser {
         } else {
             return content.getTextContent();
         }
+    }
+
+    @Override
+    public String toString() {
+        return "DOM parser";
     }
 }

@@ -18,20 +18,20 @@ public class XMLParserStAXTests {
 
     @Test
     public void parserTypeTest() {
-        XMLParser xmlParserDOM = new XMLParserBuilderImpl()
+        XMLParser xmlParserStAX = new XMLParserBuilderImpl()
                 .setParserType(STAX_STRING)
                 .setPathToXML(INVALID_PATH)
                 .build();
-        Assert.assertTrue(xmlParserDOM instanceof XMLParserStAX);
+        Assert.assertTrue(xmlParserStAX instanceof XMLParserStAX);
     }
 
     @Test
     public void parserStAXPositiveTest() throws InvalidFileException, InvalidXMLException {
-        XMLParser xmlParserDOM = new XMLParserBuilderImpl()
+        XMLParser xmlParserStAX = new XMLParserBuilderImpl()
                 .setParserType(STAX_STRING)
                 .setPathToXML(VALID_PATH)
                 .build();
-        List<Bank> actual = xmlParserDOM.parse();
+        List<Bank> actual = xmlParserStAX.parse();
         Assert.assertEquals(actual, EXPECTED_BANKS);
     }
 

@@ -1,5 +1,7 @@
 package org.banks.xml.parser.service.parser.impl;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.banks.xml.parser.exception.InvalidFileException;
 import org.banks.xml.parser.exception.InvalidXMLException;
 import org.banks.xml.parser.model.Bank;
@@ -22,6 +24,7 @@ import java.util.List;
 import static org.banks.xml.parser.utils.constants.TagConstants.*;
 
 public class XMLParserStAX implements XMLParser {
+    private Logger logger = LogManager.getLogger(this);
     private XMLInputFactory xmlInputFactory;
     private BankBuilderFactory bankBuilderFactory;
     private Bank.BankBuilder bankBuilder;
@@ -57,8 +60,10 @@ public class XMLParserStAX implements XMLParser {
                 }
             }
         } catch (IOException e) {
+            logger.error("Problem with file " + pathToXML);
             throw new InvalidFileException(e.getMessage());
         } catch (XMLStreamException e) {
+            logger.error("Problem with XML: " + pathToXML);
             throw new InvalidXMLException(e.getMessage());
         }
         return banks;
@@ -93,8 +98,15 @@ public class XMLParserStAX implements XMLParser {
                 if (id == 0) {
                     id = IDUtils.getNewId();
                 }
-                banks.add(bankBuilder.build());
+                Bank bank = bankBuilder.build();
+                logger.info("Object created byy StAX parser " + bank);
+                banks.add(bank);
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return "StAX parser";
     }
 }

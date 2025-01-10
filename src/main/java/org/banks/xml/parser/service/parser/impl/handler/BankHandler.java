@@ -1,5 +1,7 @@
 package org.banks.xml.parser.service.parser.impl.handler;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.banks.xml.parser.model.Bank;
 import org.banks.xml.parser.model.DepositType;
 import org.banks.xml.parser.service.factory.BankBuilderFactory;
@@ -15,6 +17,7 @@ import java.util.List;
 import static org.banks.xml.parser.utils.constants.TagConstants.*;
 
 public class BankHandler extends DefaultHandler {
+    private Logger logger = LogManager.getLogger(this);
     private List<Bank> banks = new ArrayList<>();
     private BankBuilderFactory bankBuilderFactory = new BankBuilderFactoryImpl();
     private Bank.BankBuilder bankBuilder;
@@ -49,7 +52,9 @@ public class BankHandler extends DefaultHandler {
                     id = IDUtils.getNewId();
                 }
                 bankBuilder.setAccountId(id);
-                banks.add(bankBuilder.build());
+                Bank bank = bankBuilder.build();
+                logger.info("Object created by SAX parser: " + bank);
+                banks.add(bank);
             }
         }
     }

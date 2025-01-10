@@ -16,20 +16,20 @@ import static org.banks.xml.test.TestConstants.*;
 public class XMLParserSAXTests {
     @Test
     public void parserTypeTest() {
-        XMLParser xmlParserDOM = new XMLParserBuilderImpl()
+        XMLParser xmlParserSAX = new XMLParserBuilderImpl()
                 .setParserType(SAX_STRING)
                 .setPathToXML(INVALID_PATH)
                 .build();
-        Assert.assertTrue(xmlParserDOM instanceof XMLParserSAX);
+        Assert.assertTrue(xmlParserSAX instanceof XMLParserSAX);
     }
 
     @Test
     public void parserSAXPositiveTest() throws InvalidFileException, InvalidXMLException {
-        XMLParser xmlParserDOM = new XMLParserBuilderImpl()
+        XMLParser xmlParserSAX = new XMLParserBuilderImpl()
                 .setParserType(SAX_STRING)
                 .setPathToXML(VALID_PATH)
                 .build();
-        List<Bank> actual = xmlParserDOM.parse();
+        List<Bank> actual = xmlParserSAX.parse();
         Assert.assertEquals(actual, EXPECTED_BANKS);
     }
 
