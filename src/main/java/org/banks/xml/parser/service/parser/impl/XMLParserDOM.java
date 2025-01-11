@@ -83,13 +83,13 @@ public class XMLParserDOM implements XMLParser {
                 .orElse(DepositType.UNDEFINED.name()));
 
         double amountOnDeposit = ParserUtils.parseDouble(getContent(element, AMOUNT_ON_DEPOSIT_TAG)
-                .orElse(TextConstants.ZERO));
+                .orElse(TextConstants.UNDEFINED));
 
         double profitability = ParserUtils.parseDouble(getContent(element, PROFITABILITY_TAG)
-                .orElse(TextConstants.ZERO));
+                .orElse(TextConstants.UNDEFINED));
 
         Period period = ParserUtils.parsePeriod(getContent(element, TIME_CONSTRAINS_TAG)
-                .orElse(TextConstants.ZERO));
+                .orElse(TextConstants.UNDEFINED));
 
         return new Bank.BankBuilder()
                 .setBankName(bankName)

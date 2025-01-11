@@ -52,9 +52,9 @@ public class XMLParserStAX implements XMLParser {
                         }
                     }
 
-                    case XMLStreamReader.CHARACTERS -> {
-                        content = Optional.ofNullable(xmlStreamReader.getText()).map(String::trim);
-                    }
+                    case XMLStreamReader.CHARACTERS ->
+                            content = Optional.ofNullable(xmlStreamReader.getText()).map(String::trim);
+
 
                     case XMLStreamReader.END_ELEMENT -> processEndElement(xmlStreamReader.getLocalName());
                 }
@@ -83,15 +83,15 @@ public class XMLParserStAX implements XMLParser {
                 bankBuilder.setDepositType(depositType);
             }
             case AMOUNT_ON_DEPOSIT_TAG -> {
-                double amount = ParserUtils.parseDouble(content.orElse(TextConstants.ZERO));
+                double amount = ParserUtils.parseDouble(content.orElse(TextConstants.UNDEFINED));
                 bankBuilder.setDepositAmount(amount);
             }
             case PROFITABILITY_TAG -> {
-                double profitability = ParserUtils.parseDouble(content.orElse(TextConstants.ZERO));
+                double profitability = ParserUtils.parseDouble(content.orElse(TextConstants.UNDEFINED));
                 bankBuilder.setProfitability(profitability);
             }
             case TIME_CONSTRAINS_TAG -> {
-                Period timeConstrains = ParserUtils.parsePeriod(content.orElse(TextConstants.ZERO));
+                Period timeConstrains = ParserUtils.parsePeriod(content.orElse(TextConstants.UNDEFINED));
                 bankBuilder.setTimeConstrains(timeConstrains);
             }
             case BANK_TAG -> {

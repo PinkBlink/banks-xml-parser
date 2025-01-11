@@ -10,12 +10,9 @@ public class ParserUtils {
     private static Logger logger = LogManager.getLogger(ParserUtils.class);
 
     public static double parseDouble(String potentialDouble) {
-        try {
-            return Double.parseDouble(potentialDouble);
-        } catch (NumberFormatException e) {
-            logger.warn("Attempt to parse string \"" + potentialDouble + "\" to Double. Replace with 0");
-            return 0;
-        }
+        return Validator.isNumber(potentialDouble)
+                ? Double.parseDouble(potentialDouble)
+                : -1;
     }
 
     public static Period parsePeriod(String potentialPeriod) {
