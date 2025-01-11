@@ -8,6 +8,7 @@ import org.banks.xml.parser.model.Bank;
 import org.banks.xml.parser.model.DepositType;
 import org.banks.xml.parser.utils.IDUtils;
 import org.banks.xml.parser.utils.ParserUtils;
+import org.banks.xml.parser.utils.constants.TextConstants;
 import org.w3c.dom.Node;
 import org.banks.xml.parser.service.parser.XMLParser;
 import org.banks.xml.parser.utils.constants.TagConstants;
@@ -22,6 +23,7 @@ import java.io.IOException;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.w3c.dom.Document;
 
@@ -30,7 +32,6 @@ import static org.banks.xml.parser.utils.constants.TagConstants.*;
 public class XMLParserDOM implements XMLParser {
     private Logger logger = LogManager.getLogger(this);
     private String pathToXML;
-    private Bank.BankBuilder bankBuilder = new Bank.BankBuilder();
 
     public XMLParserDOM(String pathToXML) {
         this.pathToXML = pathToXML;
@@ -55,7 +56,6 @@ public class XMLParserDOM implements XMLParser {
         try {
             Document document = documentBuilderFactory.newDocumentBuilder().parse(file);
             return document.getElementsByTagName(tag);
-
         } catch (IOException e) {
             logger.error("Problem with file: " + path);
             throw new InvalidFileException(e.getMessage());
@@ -66,26 +66,32 @@ public class XMLParserDOM implements XMLParser {
     }
 
     private Bank getBankFromElement(Element element) {
-        String bankName = getContent(element, BANK_NAME_TAG);
-        String country = getContent(element, COUNTRY_TAG);
-        String depositorName = getContent(element, DEPOSITOR_NAME_TAG);
 
-        String potentialId = getContent(element, ID_TAG);
-        int id = IDUtils.parseId(potentialId);
+        String bankName = getContent(element, BANK_NAME_TAG)
+                .orElse(TextConstants.UNDEFINED);
 
-        String potentialType = getContent(element, DEPOSIT_TYPE_TAG);
-        DepositType depositType = DepositType.valueOf(potentialType);
+        String country = getContent(element, COUNTRY_TAG)
+                .orElse(TextConstants.UNDEFINED);
 
-        String potentialAmount = getContent(element, AMOUNT_ON_DEPOSIT_TAG);
-        double amountOnDeposit = ParserUtils.parseDouble(potentialAmount);
+        String depositorName = getContent(element, DEPOSITOR_NAME_TAG)
+                .orElse(TextConstants.UNDEFINED);
 
-        String potentialProfitability = getContent(element, PROFITABILITY_TAG);
-        double profitability = ParserUtils.parseDouble(potentialProfitability);
+        int id = IDUtils.parseId(getContent(element, ID_TAG)
+                .orElse(null));
 
-        String potentialPeriod = getContent(element, TIME_CONSTRAINS_TAG);
-        Period period = ParserUtils.parsePeriod(potentialPeriod);
+        DepositType depositType = DepositType.valueOf(getContent(element, DEPOSIT_TYPE_TAG)
+                .orElse(DepositType.UNDEFINED.name()));
 
-        return bankBuilder
+        double amountOnDeposit = ParserUtils.parseDouble(getContent(element, AMOUNT_ON_DEPOSIT_TAG)
+                .orElse(TextConstants.ZERO));
+
+        double profitability = ParserUtils.parseDouble(getContent(element, PROFITABILITY_TAG)
+                .orElse(TextConstants.ZERO));
+
+        Period period = ParserUtils.parsePeriod(getContent(element, TIME_CONSTRAINS_TAG)
+                .orElse(TextConstants.ZERO));
+
+        return new Bank.BankBuilder()
                 .setBankName(bankName)
                 .setCountry(country)
                 .setDepositorName(depositorName)
@@ -97,12 +103,9 @@ public class XMLParserDOM implements XMLParser {
                 .build();
     }
 
-    private String getContent(Element element, String tag) {
+    private Optional<String> getContent(Element element, String tag) {
         Node content = element.getElementsByTagName(tag).item(0);
-        if (content == null) {
-            return null;
-        }
-        return content.getTextContent();
+        return Optional.ofNullable(content).map(Node::getTextContent).map(String::trim);
     }
 
     @Override

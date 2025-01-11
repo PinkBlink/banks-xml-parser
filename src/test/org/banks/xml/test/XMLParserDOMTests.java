@@ -3,7 +3,7 @@ package org.banks.xml.test;
 import org.banks.xml.parser.exception.InvalidFileException;
 import org.banks.xml.parser.exception.InvalidXMLException;
 import org.banks.xml.parser.model.Bank;
-import org.banks.xml.parser.service.builder.impl.ParserType;
+import org.banks.xml.parser.service.parser.impl.ParserType;
 import org.banks.xml.parser.service.builder.impl.XMLParserManagerImpl;
 import org.banks.xml.parser.service.parser.XMLParser;
 import org.banks.xml.parser.service.parser.impl.XMLParserDOM;
@@ -34,14 +34,15 @@ public class XMLParserDOMTests {
     @Test(expectedExceptions = InvalidFileException.class)
     public void parserDOMNegativeTest1() throws InvalidFileException, InvalidXMLException {
         List<Bank> result = new XMLParserManagerImpl()
-                .getParser(ParserType.DOM, VALID_PATH)
+                .getParser(ParserType.DOM, INVALID_PATH)
                 .parse();
     }
 
     @Test(expectedExceptions = InvalidXMLException.class)
     public void parserDOMNegativeTest2() throws InvalidFileException, InvalidXMLException {
         List<Bank> result = new XMLParserManagerImpl()
-                .getParser(ParserType.DOM, VALID_PATH)
+                .getParser(ParserType.DOM, EMPTY_FILE)
                 .parse();
+        System.out.println(result);
     }
 }

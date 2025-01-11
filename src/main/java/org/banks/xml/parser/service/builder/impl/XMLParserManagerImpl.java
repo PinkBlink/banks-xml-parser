@@ -8,6 +8,7 @@ import org.banks.xml.parser.service.factory.impl.DOMParserFactory;
 import org.banks.xml.parser.service.factory.impl.SAXParserFactory;
 import org.banks.xml.parser.service.factory.impl.STAXParserFactory;
 import org.banks.xml.parser.service.parser.XMLParser;
+import org.banks.xml.parser.service.parser.impl.ParserType;
 
 import java.util.Map;
 

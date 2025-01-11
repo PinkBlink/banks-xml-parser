@@ -5,7 +5,6 @@ import org.banks.xml.parser.model.DepositType;
 
 import java.time.Period;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ExpectedBanksContainer {
@@ -29,7 +28,7 @@ public class ExpectedBanksContainer {
         createBankAndAddToList("BNP Paribas", "France", "Amelie Dupont"
                 , 564738, DepositType.METALLIC, 8500.00, 4.0, "P1Y");
         createBankAndAddToList("HSBC", "UK", "James Smith"
-                , 453276, DepositType.SAVINGS, 14000.33, 2.5, "P2Y3M");
+                , 453276, DepositType.DEMAND, 14000.33, 2.5, "P2Y3M");
         createBankAndAddToList("ING Bank", "Netherlands", "Sophie van Dijk"
                 , 782342, DepositType.TERM, 5600.20, 3.8, "P5Y");
         createBankAndAddToList("Bank of China", "China", "Wei Zhang"

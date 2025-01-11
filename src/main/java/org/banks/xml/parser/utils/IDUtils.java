@@ -30,7 +30,7 @@ public class IDUtils {
     }
 
     public static int parseId(String potentialId) {
-        if (!isValidId(potentialId)) {
+        if (!Validator.isValidId(potentialId)) {
             return generateNewId();
         }
         int id = Integer.parseInt(potentialId);
@@ -41,7 +41,5 @@ public class IDUtils {
         return id;
     }
 
-    private static boolean isValidId(String potentialId) {
-        return potentialId != null && !potentialId.isEmpty() && Validator.isNumber(potentialId);
-    }
+
 }

@@ -7,7 +7,7 @@ public class Bank {
     private final String bankName;
     private final String country;
     private final String depositorName;
-    private final int accountId;
+    private final Integer accountId;
     private final DepositType depositType;
     private final double depositAmount;
     private final double profitability;

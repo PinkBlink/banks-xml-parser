@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Logger;
 import org.banks.xml.parser.exception.InvalidFileException;
 import org.banks.xml.parser.exception.InvalidXMLException;
 import org.banks.xml.parser.model.Bank;
-import org.banks.xml.parser.service.parser.impl.handler.BankHandler;
+import org.banks.xml.parser.service.parser.impl.sax.handler.BankHandler;
 import org.banks.xml.parser.service.parser.XMLParser;
 import org.xml.sax.SAXException;
 

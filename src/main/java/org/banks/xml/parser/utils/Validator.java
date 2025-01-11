@@ -1,15 +1,23 @@
 package org.banks.xml.parser.utils;
 
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class Validator {
+    private static Logger logger = LogManager.getLogger(Validator.class);
+
     public static boolean isNumber(String numberStr) {
-        numberStr = numberStr.trim();
-        for (int i = 0; i < numberStr.length(); i++) {
-            char digit = numberStr.charAt(i);
-            if (!Character.isDigit(digit) && digit != '.') {
-                return false;
-            }
+        try {
+            Double.parseDouble(numberStr);
+            return true;
+        } catch (NumberFormatException e) {
+            logger.error("Attempt to parse string \"" + numberStr + "\" to double");
+            return false;
         }
-        return true;
+    }
+
+    public static boolean isValidId(String potentialId) {
+        return potentialId != null && !potentialId.isEmpty() && Validator.isNumber(potentialId);
     }
 }

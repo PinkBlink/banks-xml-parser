@@ -45,7 +45,7 @@
         <country>UK</country>
         <depositor_name>James Smith</depositor_name>
         <id>453276</id>
-        <deposit_type>SAVINGS</deposit_type>
+        <deposit_type>DEMAND</deposit_type>
         <amount_on_deposit>14000.33</amount_on_deposit>
         <profitability>2.5</profitability>
         <time_constrains>P2Y3M</time_constrains>
