@@ -47,7 +47,8 @@ public class BankHandler extends DefaultHandler {
                     bankBuilder.setDepositAmount(Double.parseDouble(content.orElse(TextConstants.UNDEFINED)));
             case PROFITABILITY_TAG ->
                     bankBuilder.setProfitability(Double.parseDouble(content.orElse(TextConstants.UNDEFINED)));
-            case TIME_CONSTRAINS_TAG -> bankBuilder.setTimeConstrains(Period.parse(content.orElse(TextConstants.UNDEFINED)));
+            case TIME_CONSTRAINS_TAG ->
+                    bankBuilder.setTimeConstrains(Period.parse(content.orElse(TextConstants.UNDEFINED)));
             case BANK_TAG -> {
                 if (id == null) {
                     id = IDUtils.getNewId();

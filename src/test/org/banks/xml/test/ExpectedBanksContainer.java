@@ -11,6 +11,7 @@ public interface ExpectedBanksContainer {
 
     static List<Bank> getBanks() {
         List<Bank> result = new ArrayList<>();
+
         createBankAndAddToList("Bank of America", "USA", "John Doe"
                 , 0, DepositType.TERM, 10000.50, 5.5, "P2Y", result);
         createBankAndAddToList("Santander", "Poland", "Mike Wazowski"

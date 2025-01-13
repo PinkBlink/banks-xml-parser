@@ -67,7 +67,7 @@ public class XMLParserStAXTests {
     }
 
     @Test
-    public void parserSAXNegativeTest2(){
+    public void parserSAXNegativeTest2() {
         //Given
         XMLParser xmlParserSTAX;
 
