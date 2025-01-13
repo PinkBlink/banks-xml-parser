@@ -1,8 +1,6 @@
-package org.banks.xml.parser.service.builder.impl;
+package org.banks.xml.parser.service.manager.impl;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.banks.xml.parser.service.builder.XMLParserManager;
+import org.banks.xml.parser.service.manager.XMLParserManager;
 import org.banks.xml.parser.service.factory.XMLParserFactory;
 import org.banks.xml.parser.service.factory.impl.DOMParserFactory;
 import org.banks.xml.parser.service.factory.impl.SAXParserFactory;
@@ -14,8 +12,6 @@ import java.util.Map;
 
 
 public class XMLParserManagerImpl implements XMLParserManager {
-    private Logger logger = LogManager.getLogger(this);
-
     private Map<ParserType, XMLParserFactory> parsers = Map.of(
             ParserType.DOM, DOMParserFactory.getInstance()
             , ParserType.SAX, SAXParserFactory.getInstance()

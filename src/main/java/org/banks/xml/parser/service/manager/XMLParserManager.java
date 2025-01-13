@@ -1,4 +1,4 @@
-package org.banks.xml.parser.service.builder;
+package org.banks.xml.parser.service.manager;
 
 import org.banks.xml.parser.service.parser.impl.ParserType;
 import org.banks.xml.parser.service.parser.XMLParser;
