@@ -5,5 +5,4 @@ import org.banks.xml.parser.service.parser.XMLParser;
 
 public interface XMLParserManager {
     XMLParser getParser(ParserType parserType, String pathToXML);
-
 }
